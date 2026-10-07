@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown to January 25, 2027</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #fff1f5, #f3e8ff, #e0f2fe);
+    color: #35233f; padding: 24px;
+    background-image: url("https://raw.githubusercontent.com/lise1905/countdown/main/us.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .card {
+    width: min(760px, 100%); text-align: center; padding: 42px 24px;
+    border-radius: 28px; background: rgba(255,255,255,.82);
+    box-shadow: 0 18px 55px rgba(75, 40, 90, .14);
+    border: 1px solid rgba(255,255,255,.9);
+  }
+  .heart { font-size: 34px; margin-bottom: 8px; }
+  h1 { font-size: clamp(1.8rem, 5vw, 3rem); margin: 8px 0 10px; }
+  .subtitle { font-size: 1.05rem; color: #765e80; margin-bottom: 30px; }
+  .timer { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .unit {
+    background: #fff; border-radius: 18px; padding: 22px 8px;
+    border: 1px solid #f0ddec; box-shadow: 0 5px 16px rgba(75,40,90,.06);
+  }
+  .number { display: block; font-size: clamp(2rem, 6vw, 3.4rem); font-weight: 700; color: #a04479; }
+  .label { display: block; margin-top: 6px; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: #806c86; }
+  #message { margin-top: 26px; font-size: 1.1rem; color: #a04479; font-weight: 600; }
+  .date { margin-top: 18px; color: #806c86; font-size: .9rem; }
+  @media (max-width: 480px) {
+    .card { padding: 32px 14px; }
+    .timer { gap: 7px; }
+    .unit { padding: 18px 4px; border-radius: 13px; }
+    .label { font-size: .65rem; letter-spacing: .06em; }
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="heart">💗</div>
+    <h1>Counting Down</h1>
+    <div class="subtitle">Every day brings January 25, 2027 a little closer ✨</div>
+    <section class="timer" aria-label="Countdown timer">
+      <div class="unit"><span class="number" id="days">---</span><span class="label">Days</span></div>
+      <div class="unit"><span class="number" id="hours">--</span><span class="label">Hours</span></div>
+      <div class="unit"><span class="number" id="minutes">--</span><span class="label">Minutes</span></div>
+      <div class="unit"><span class="number" id="seconds">--</span><span class="label">Seconds</span></div>
+    </section>
+    <div id="message">A little closer with every heartbeat ❤️</div>
+    <div class="date">Target date: January 25, 2027 · 12:00 AM India time</div>
+  </main>
+<script>
+  // India Standard Time is UTC+05:30.
+  const target = new Date("2027-01-25T00:00:00+05:30").getTime();
+  const pad = n => String(n).padStart(2, "0");
+  function updateCountdown() {
+    const remaining = target - Date.now();
+    if (remaining <= 0) {
+      document.getElementById("days").textContent = "0";
+      document.getElementById("hours").textContent = "00";
+      document.getElementById("minutes").textContent = "00";
+      document.getElementById("seconds").textContent = "00";
+      document.getElementById("message").textContent = "The day is here! ❤️";
+      return;
+    }
+    const days = Math.floor(remaining / 86400000);
+    const hours = Math.floor((remaining % 86400000) / 3600000);
+    const minutes = Math.floor((remaining % 3600000) / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = pad(hours);
+    document.getElementById("minutes").textContent = pad(minutes);
+    document.getElementById("seconds").textContent = pad(seconds);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
